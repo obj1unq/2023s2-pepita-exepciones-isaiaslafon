@@ -1,0 +1,57 @@
+import aves.*
+import comidas.*
+import entrenadores.*
+
+//Ejemplos: 
+// Suponiendo que milena tiene a pepita y a pepon, con sus respectivas energias iniciales (100 y 30).
+// 
+// * tanto pepita como pepon pueden volar 4 kms. Por lo tanto milena puede movilizarlas.
+// * pepita puede volar 6 kms, pero pepon no. Por lo tanto milena no puede movilizarlas. (Si se intenta movilizarlas ambas deben quedar con su energia inicial)
+// * ni pepita ni pepon pueden volar 100 km.
+
+ 
+describe "volar" {
+
+
+	test "Pepita y Pepon pueden volar 4" {
+		
+//		pepita.volar(4)
+//		pepon.volar(4)
+//		assert.equals(86, pepita.energia())
+//		assert.equals(2, pepon.energia())
+				
+		assert.that(pepita.puedeVolar(4))
+		assert.that(pepon.puedeVolar(4))
+		
+
+		
+	}	
+	
+	test "Pepon no puede volar 6 y Pepita no puede volar 91" {
+		
+		assert.throwsException({pepon.volar(6)})
+		//assert.throwsExceptionWithMessage("Algún ave no puede volar!!!",{pepon.volar(6)})
+		assert.throwsException({pepita.volar(91)})
+
+	}
+}
+
+describe "movilizar" {
+
+	method initialize(){
+		milena.agregar(pepon)
+		milena.agregar(pepita)	
+	}
+	
+	test "Milena puede movilizar 4" {
+		assert.that(milena.puedeMovilizar(4))
+	}	
+	
+	test "Milena no puede movilizar 6" {
+		assert.notThat(milena.puedeMovilizar(6))
+	}	
+	
+	test "Milena falla al intentar movilizar 6" {
+		assert.throwsException({milena.movilizar(6)})
+	}	
+}
